@@ -31,12 +31,11 @@ function combainTwoArrays(fun, arr1, arr2) {
     return resArr;
 }
 
-
 function combainArrays(fun, ...arrays) {
     const resArr = [];
 
-    for(let j = 0; j < arrays.length; j++) {
-        for (let i = 0; i <  arrays[j].length; i++) {
+    for (let j = 0; j < arrays.length; j++) {
+        for (let i = 0; i < arrays[j].length; i++) {
             if (i >= arrays[j].length) arrays[j].push(0);
             resArr.push(fun(arrays[j][i], arrays[j][i + 1]));
         }
@@ -60,6 +59,74 @@ console.log('c)');
 const multisumArr = combainArrays(sum, arr1, arr2, arr3);
 console.log(multisumArr);
 
-
 //2
-console.log('-----zadanie 1-----');
+console.log('-----zadanie 2-----');
+
+function range(a, b) {
+    if (a < b) {
+    }
+}
+
+//3
+console.log('-----zadanie 3-----');
+
+const alpha = Array.from(Array(26)).map((e, i) => String.fromCharCode(i + 97));
+const str = 'abdudabi';
+
+function charNum(str) {
+    let obj = {};
+
+    for (letter of str) {
+        if(obj[letter] == undefined) obj[letter] = 0;
+        obj[letter] = obj[letter] + 1;
+    }
+
+    return obj;
+}
+
+const obj = charNum(str);
+
+console.log(obj);
+
+//4
+console.log('-----zadanie 4-----');
+
+function scale0to1(arr) {
+    
+    let everyTwo = arr.filter((value, index) => index % 2 == 1);
+    const max = Math.max(...everyTwo);
+    const min = Math.min(...everyTwo);
+
+    for (el of everyTwo) {
+        if(el == max) el = 1;
+        if(el == min) el = 0;
+    }
+        
+    const scaled = everyTwo.map(val => val /= max);
+    
+    return scaled;
+}
+
+const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+scaledArr = scale0to1(arr);
+console.log(scaledArr);
+
+//5
+console.log('-----zadanie 5-----');
+
+function getRandomIntInclusive(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+const N = 10;
+let array = Array.from(Array(N));
+array = array.map(() => getRandomIntInclusive(1, 10));
+
+const product = array.reduce((acc, curr) => acc *= curr);
+const numOfEven = array.reduce((acc = 0, curr) => curr % 2 === 0 ? acc += 1 : acc += 0)
+
+console.log(array);
+console.log('product: ', product);
+console.log('numOfEven: ', numOfEven);
