@@ -31,18 +31,6 @@ function combainTwoArrays(fun, arr1, arr2) {
     return resArr;
 }
 
-function combainArrays(fun, ...arrays) {
-    const resArr = [];
-
-    for (let j = 0; j < arrays.length; j++) {
-        for (let i = 0; i < arrays[j].length; i++) {
-            if (i >= arrays[j].length) arrays[j].push(0);
-            resArr.push(fun(arrays[j][i], arrays[j][i + 1]));
-        }
-    }
-
-    return resArr;
-}
 
 const arr1 = [4, 5, 6];
 const arr2 = [10, 20, 30, 2];
@@ -56,16 +44,40 @@ const pointsArr = combainTwoArrays(pointXY, arr3, arr4);
 console.log(pointsArr);
 
 console.log('c)');
+function combainArrays (fun, ...rest) {
+    return rest[0].reduce((newRest, _, i) => newRest.concat([rest.map((row) => row[i])]), []).map((elem) => fun(...elem))
+}
+
 const multisumArr = combainArrays(sum, arr1, arr2, arr3);
+
 console.log(multisumArr);
 
 //2
 console.log('-----zadanie 2-----');
 
 function range(a, b) {
-    if (a < b) {
+    if (a <= b) {
+        var c = a - 1;
+        return (function foo() {
+            c == b ?  c = NaN : c += 1;
+            return c;
+        });
+    } else if (a > b) {
+        var c = a + 1;
+        return (function foo() {
+            c == b ? c = NaN : c -= 1;
+            return c;
+        });
     }
 }
+
+f = range(5, 1);
+console.log(f());
+console.log(f());
+console.log(f());
+console.log(f());
+console.log(f());
+
 
 //3
 console.log('-----zadanie 3-----');
@@ -77,7 +89,7 @@ function charNum(str) {
     let obj = {};
 
     for (letter of str) {
-        if(obj[letter] == undefined) obj[letter] = 0;
+        if (obj[letter] == undefined) obj[letter] = 0;
         obj[letter] = obj[letter] + 1;
     }
 
@@ -92,18 +104,18 @@ console.log(obj);
 console.log('-----zadanie 4-----');
 
 function scale0to1(arr) {
-    
     let everyTwo = arr.filter((value, index) => index % 2 == 1);
     const max = Math.max(...everyTwo);
     const min = Math.min(...everyTwo);
 
-    for (el of everyTwo) {
-        if(el == max) el = 1;
-        if(el == min) el = 0;
-    }
-        
-    const scaled = everyTwo.map(val => val /= max);
-    
+    everyTwo.forEach(el => {
+        if (el == max) el = 1;
+        if (el == min) el = 0;
+        return el;
+    });
+
+    const scaled = everyTwo.map((val) => (val /= max));
+
     return scaled;
 }
 
@@ -124,8 +136,10 @@ const N = 10;
 let array = Array.from(Array(N));
 array = array.map(() => getRandomIntInclusive(1, 10));
 
-const product = array.reduce((acc, curr) => acc *= curr);
-const numOfEven = array.reduce((acc = 0, curr) => curr % 2 === 0 ? acc += 1 : acc += 0)
+const product = array.reduce((acc, curr) => (acc *= curr));
+const numOfEven = array.reduce((acc, curr) => 
+    curr % 2 ? acc : acc + 1
+, 0);
 
 console.log(array);
 console.log('product: ', product);
